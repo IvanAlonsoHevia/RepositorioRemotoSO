@@ -8,18 +8,22 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
         Socket server;
-        bool registered = false; //bolean que nos permite saber si el usuario esta registrado o no en la base de datos.
-        bool connected = false; //bolean que nos permite saber si nos hemos conectado o no a la base de datos.
-        bool salida = true; //bolean que nos permite saber si el usuario ha salido o no.
+        Thread atender;
+        bool registered; //bolean que nos permite saber si el usuario esta registrado o no en la base de datos.
+        bool connected; //bolean que nos permite saber si nos hemos conectado o no a la base de datos.
+        delegate void DelegadoParaEscribir(string conectado);
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false; //Necesario para que los elementos de los formularios puedan ser
+            //accedidos desde threads diferentes a los que los creaaron.
         }
         
         //Este boton nos conecta con la base de datos, y si lo hace bien, nos cambia el color del fondo a verde.
@@ -29,12 +33,12 @@ namespace WindowsFormsApplication1
         private void registrar_Click(object sender, EventArgs e)
         {
             //El ususario no se puede conectar sin introducir el nombre de usuario y su respectiva contraseña.
-            if ((connected == false) && (Username.Text != "") && (Password.Text != "")) {
+            if ((connected == false) && (Username.Text != "") && (Password.Text != "") && (registered==false)) {
                 //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                 //al que deseamos conectarnos
-                IPAddress direc = IPAddress.Parse("192.168.56.102");
+                IPAddress direc = IPAddress.Parse("147.83.117.22");
                 //Nos conectamos al mismo puerto que en el servidor.
-                IPEndPoint ipep = new IPEndPoint(direc, 9040);
+                IPEndPoint ipep = new IPEndPoint(direc, 50051);
 
 
                 //Creamos el socket 
@@ -52,7 +56,6 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("No he podido conectar con el servidor");
                     return;
                 }
-
                 connected = true;
 
                 string mensaje = "1/" + Username.Text + "/" + Password.Text;
@@ -60,39 +63,21 @@ namespace WindowsFormsApplication1
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
 
-                //Recibimos la respuesta del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                if (mensaje == "SI")
-                    MessageBox.Show("El usuario: " + Username.Text + ", se ha registrado correctamente.");
-                else
-                    MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
+                ThreadStart ts = delegate { AtenderServidor(); };
+                atender = new Thread(ts);
+                atender.Start();
            }
 
-            //El ususario no puede realizar la petición sin introducir el nombre de usuario y su respectiva contraseña.
-            if ((Username.Text != "") && (Password.Text != ""))
+            else if ((connected == true) && (Username.Text != "") && (Password.Text != "") && (registered == false))
             {
                 string mensaje = "1/" + Username.Text + "/" + Password.Text;
                 // Enviamos al servidor el username y password tecleadas.
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
-
-                //Recibimos la respuesta del servidor
-                byte[] msg2 = new byte[80];
-                server.Receive(msg2);
-                mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                if (mensaje == "SI")
-                    MessageBox.Show("El usuario: " + Username.Text + ", se ha registrado correctamente.");
-                else
-                    MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
             }
             else
-                MessageBox.Show("Introduzca un usuario y/o contraseña válidos");
-
-
-
-
+                MessageBox.Show("Debes hacer Log Out antes de registrarte con otro usuario");
+            
         }
 
         //Este boton nos conecta con la base de datos, si no se ha registrado antes el usuario, si lo ha hecho
@@ -101,17 +86,16 @@ namespace WindowsFormsApplication1
         //Si el usuario no existe o la contraseña es incorrecta, debera registrarse para realizar las consultas.
         private void login_Click(object sender, EventArgs e)
         {
-            if (salida == true)
+            //El ususario no se puede conectar sin introducir el nombre de usuario y su respectiva contraseña.
+            if (registered == false)
             {
-                //El ususario no se puede conectar sin introducir el nombre de usuario y su respectiva contraseña.
                 if ((connected == false) && (Username.Text != "") && (Password.Text != ""))
                 {
                     //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                     //al que deseamos conectarnos
-                    IPAddress direc = IPAddress.Parse("192.168.56.102");
+                    IPAddress direc = IPAddress.Parse("147.83.117.22");
                     //Nos conectamos al mismo puerto que en el servidor.
-                    IPEndPoint ipep = new IPEndPoint(direc, 9040);
-
+                    IPEndPoint ipep = new IPEndPoint(direc, 50051);
 
                     //Creamos el socket 
                     server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -128,79 +112,28 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("No he podido conectar con el servidor");
                         return;
                     }
-
-                    connected = true;
-
-                }
-
-                //El ususario no puede realizar la petición sin introducir el nombre de usuario y su respectiva contraseña.
-                if ((Username.Text != "") && (Password.Text != ""))
-                {
                     string mensaje = "2/" + Username.Text + "/" + Password.Text;
-                    // Enviamos al servidor el username y password tecleadas. // 
+                    // Enviamos al servidor el username y password tecleadas.
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                     server.Send(msg);
-                    //Recibimos la respuesta del servidor
-                    byte[] msg2 = new byte[80];
-                    server.Receive(msg2);
-                    mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                    string mensaje2 = mensaje.Split('/')[0];
-                    string mensaje3 = mensaje.Split('/')[1];
-
-                    if (mensaje2 == "SI")
-                    {
-                        MessageBox.Show(mensaje3);
-                        MessageBox.Show("Ya puedes realizar la consulta.");
-                        registered = true;
-                    }
-                    else
-                        MessageBox.Show("La contraseña o nombre de usuario no son correctos o el usuario ya esta conectado en otro dispositivo");
-
-                    //Si el Check Box esta marcado, entonces la grid view muestra la lista de conectados.
-                    if (CheckConectados.Checked == true)
-                    {
-                        string newmensaje = "6/";
-                        //Enviamos al servidor la orden de tambien mirar en la lista de conectados.
-                        byte[] newmsg = System.Text.Encoding.ASCII.GetBytes(newmensaje);
-                        server.Send(newmsg);
-                        //Recibimos la respuesta del servidor y la tratamos.
-                        byte[] newmsg2 = new byte[80];
-                        server.Receive(newmsg2);
-                        newmensaje = Encoding.ASCII.GetString(newmsg2).Split('\0')[0];
-                        ListaConectados.Rows.Clear();
-                        ListaConectados.ColumnCount = 1;
-                        ListaConectados.ColumnHeadersVisible = true;
-                        if (newmensaje != null)
-                        {
-                            string newmensaje2 = newmensaje.Split('/')[0];
-                            NumConn.Text = newmensaje2;
-                            int nm = Convert.ToInt32(newmensaje2);
-                            int i;
-                            for (i = 1; i <= nm; i++)
-                            {
-                                newmensaje2 = newmensaje.Split('/')[i];
-                                ListaConectados.Rows.Add(newmensaje2);
-                            }
-                            ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                        }
-                        else
-                            NumConn.Text = "0";
-                    }
+                    ThreadStart ts = delegate { AtenderServidor(); };
+                    atender = new Thread(ts);
+                    atender.Start();
+                    connected = true;
+                }
+                else if ((connected == true) && (Username.Text != "") && (Password.Text != ""))
+                {
+                    string mensaje = "2/" + Username.Text + "/" + Password.Text;
+                    // Enviamos al servidor el username y password tecleadas.
+                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                    server.Send(msg);
                 }
                 else
-                    MessageBox.Show("Introduzca un usuario y/o contraseña válidos");
+                    MessageBox.Show("Usuario o contraseña incorrectos");
             }
-
             else
-                MessageBox.Show("Debes hacer Log Out antes de hacer Log In con otro usuario"); 
-
-
-            salida = false;
-
-
-
+                MessageBox.Show("Debes hacer Log Out antes de hacer Log In con otro usuario");
         }
-
         //Este boton tiene la funcion de enviar la consulta que seleccionamos con los respectivos parametros de esta introducidos por teclado.
         private void enviar_Click(object sender, EventArgs e)
         {
@@ -216,11 +149,6 @@ namespace WindowsFormsApplication1
                 {
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                     server.Send(msg);
-                    //Recibimos la respuesta del servidor
-                    byte[] msg2 = new byte[80];
-                    server.Receive(msg2);
-                    mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                    MessageBox.Show(mensaje);
                 }
             }
             else if (Edgar.Checked && registered) //CONSULTA2 (solo se realizara si se ha identificado el usuario previamente)
@@ -235,14 +163,6 @@ namespace WindowsFormsApplication1
                 {
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                     server.Send(msg);
-                    //Recibimos la respuesta del servidor
-                    byte[] msg2 = new byte[80];
-                    server.Receive(msg2);
-                    mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                    if (mensaje == "")
-                        MessageBox.Show("Consulta mal formulada.");
-                    else
-                        MessageBox.Show(mensaje);
                 }
             }
 
@@ -258,14 +178,6 @@ namespace WindowsFormsApplication1
                 {
                     byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                     server.Send(msg);
-                    //Recibimos la respuesta del servidor
-                    byte[] msg2 = new byte[80];
-                    server.Receive(msg2);
-                    mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0];
-                    if (mensaje == "")
-                        MessageBox.Show("Consulta mal formulada.");
-                    else
-                        MessageBox.Show(mensaje);
                 }
             }
             else
@@ -280,9 +192,6 @@ namespace WindowsFormsApplication1
         private void logout_Click(object sender, EventArgs e)
         {
             //Cuando el ususario se desconecta, la grid view esta vacia y además cambia el fondo a gris.
-            salida = true;
-            ListaConectados.Rows.Clear();
-            CheckConectados.Checked = false;
             NumConn.Text = "0";
             registered = false;
             //Mensaje de desconexión
@@ -295,52 +204,95 @@ namespace WindowsFormsApplication1
             this.BackColor = Color.Gray;
             connected = false;
             ListaConectados.Rows.Clear();
-            
+            atender.Abort();
         }
-
-        private void CheckConectados_CheckedChanged(object sender, EventArgs e)
+        private void AtenderServidor()
         {
-            //Si la Check Box esta marcada, entonces la grid view te enseña la lista de conectados.
-            if (CheckConectados.Checked == true)
+            while (true)
             {
-                string newmensaje = "6/";
-                //Enviamos al servidor la orden de tambien mirar en la lista de conectados.
-                byte[] newmsg = System.Text.Encoding.ASCII.GetBytes(newmensaje);
-                server.Send(newmsg);
-                //Recibimos la respuesta del servidor y la tratamos.
-                byte[] newmsg2 = new byte[80];
-                server.Receive(newmsg2);
-                newmensaje = Encoding.ASCII.GetString(newmsg2).Split('\0')[0];
-                ListaConectados.Rows.Clear();
-                ListaConectados.ColumnCount = 1;
-                ListaConectados.ColumnHeadersVisible = true;
-                if (newmensaje != null)
+                //Recibimos la respuesta del servidor
+                byte[] msg2 = new byte[80];
+                server.Receive(msg2);
+                string mensajerecibido = Encoding.ASCII.GetString(msg2);
+                string[] trozos = Encoding.ASCII.GetString(msg2).Split('/');
+                int codigo = Convert.ToInt32(trozos[0]);
+                string mensaje = trozos[1].Split('\0')[0];
+                string mensaje2;
+                switch (codigo)
                 {
-                    string newmensaje2 = newmensaje.Split('/')[0];
-                    NumConn.Text = newmensaje2;
-                    int nm = Convert.ToInt32(newmensaje2);
-                    int i;
-                    for (i = 1; i <= nm; i++)
-                    {
-                        newmensaje2 = newmensaje.Split('/')[i];
-                        ListaConectados.Rows.Add(newmensaje2);
-                    }
-                    ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    //dataGridView1.Columns.Add("Column",mensaje[0]);
-                    //connlbl.Text = mensaje;
+                   case 1:
+                        if (mensaje == "SI")
+                        {
+                            MessageBox.Show("El usuario: " + Username.Text + ", se ha registrado correctamente.");
+                        }
+                        else
+                            MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
+                        break;
+                    case 2:
+                        mensaje2 = trozos[2].Split('\0')[0];
+
+                        if (mensaje == "SI")
+                        {
+                            if (mensaje2 == "El usuario: " + Username.Text + ", se ha anadido correctamente a la lista")
+                            {
+                                MessageBox.Show(mensaje2);
+                                registered = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show(mensaje2);
+                                registered = false;
+                            }
+                        }
+                        else
+                            MessageBox.Show(mensaje2);
+                        break;
+                    case 3:
+                            MessageBox.Show(mensaje);
+                        break;
+                    case 4:
+                            MessageBox.Show(mensaje);
+                        break;
+                    case 5:
+                            MessageBox.Show(mensaje);
+                        break;
+                    case 6:
+                        //Recibimos notificación
+                        int nm = Convert.ToInt32(mensaje);
+                        if (nm != 0)
+                        {
+                            ListaConectados.Rows.Clear();
+                            NumConn.Text = mensaje;
+                            int i;
+                            for (i = 2; i < nm+2; i++)
+                            {
+                                mensaje2 = trozos[i].Split('\0')[0];
+                                DelegadoParaEscribir delegado = new DelegadoParaEscribir(PonTabla);
+                                ListaConectados.Invoke(delegado, new object [] {mensaje2});
+                            }
+                            ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                        }
+                        else
+                            NumConn.Text = "0";
+                        break;
                 }
-                else
-                    NumConn.Text = "0";
             }
-
-
-            else
-                ListaConectados.Rows.Clear();
         }
 
+        public void PonTabla(string conectado)
+        {
+            ListaConectados.Rows.Add(conectado);
+            ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
 
-
-
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            NumConn.Text = "0";
+            registered = false;
+            connected = false;
+            ListaConectados.Rows.Clear();
+            ListaConectados.ColumnCount = 1;
+            ListaConectados.ColumnHeadersVisible = true;
+        }
     }
 }

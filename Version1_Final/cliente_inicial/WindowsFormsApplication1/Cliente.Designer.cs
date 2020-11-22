@@ -55,7 +55,6 @@
             this.ListaConectados = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.NumConn = new System.Windows.Forms.Label();
-            this.CheckConectados = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListaConectados)).BeginInit();
             this.SuspendLayout();
@@ -354,23 +353,11 @@
             this.NumConn.Size = new System.Drawing.Size(60, 20);
             this.NumConn.TabIndex = 9;
             // 
-            // CheckConectados
-            // 
-            this.CheckConectados.AutoSize = true;
-            this.CheckConectados.Location = new System.Drawing.Point(1020, 394);
-            this.CheckConectados.Name = "CheckConectados";
-            this.CheckConectados.Size = new System.Drawing.Size(265, 24);
-            this.CheckConectados.TabIndex = 10;
-            this.CheckConectados.Text = "Ver lista de usuarios conectados";
-            this.CheckConectados.UseVisualStyleBackColor = true;
-            this.CheckConectados.CheckedChanged += new System.EventHandler(this.CheckConectados_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1413, 569);
-            this.Controls.Add(this.CheckConectados);
             this.Controls.Add(this.NumConn);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ListaConectados);
@@ -378,6 +365,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListaConectados)).EndInit();
@@ -415,7 +403,6 @@
         private System.Windows.Forms.DataGridView ListaConectados;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label NumConn;
-        private System.Windows.Forms.CheckBox CheckConectados;
     }
 }
 
