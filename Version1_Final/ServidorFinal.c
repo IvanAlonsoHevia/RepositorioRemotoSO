@@ -66,7 +66,6 @@ int Pon (ListaConectados *lista, char nombre[20], int socket) {
 }
 int PonNombre (ListaConectados *lista, int socket, char nombre[20]) {
 	int encontrado = 0;
-	int i;
 	int i=0;
 	while ((i < lista->num) && (!encontrado))
 	{
@@ -677,7 +676,6 @@ void *AtenderCliente (void *socket)
 		
 		else if (codigo == 3) //consulta1
 		{
-			char resolucion [512];
 			strcpy(resolucion,"");
 			p = strtok( NULL, "/");
 			strcpy (username, p);
@@ -691,7 +689,6 @@ void *AtenderCliente (void *socket)
 		
 		else if (codigo == 4) //consulta2
 		{
-			char resolucion [512];
 			strcpy(resolucion,"");
 			p = strtok( NULL, "/");
 			strcpy (username, p);
@@ -700,8 +697,6 @@ void *AtenderCliente (void *socket)
 		}
 		
 		else if (codigo == 5) //consulta3
-		{
-			char resolucion [512];
 		{			
 			strcpy(resolucion,"");
 			p = strtok( NULL, "/");
@@ -712,7 +707,7 @@ void *AtenderCliente (void *socket)
 			strcpy (f_h, p);
 			consulta3 (minjug, minpunt, f_h, conn, resolucion);
 			sprintf (respuesta,"5/%s",resolucion); 
-	}
+		}
 		
 		else if (codigo == 7) //RECIBO: 7/Maria/Pablo
 			//ENVIO: 7/ID/Juan
@@ -770,13 +765,6 @@ void *AtenderCliente (void *socket)
 		}
 		else if (codigo == 9) //9/ID/Chat
 		{
-			write (sock_conn,respuesta, strlen(respuesta)); //respuesta a un cliente
-			
-		}
-		if ((codigo==2)||(codigo==0)) {
-			
-			char notificacion[100];
-			char notificacion2[100];	
 			strcpy(respuesta,"");
 			char chat[100];
 			p = strtok( NULL, "/");
@@ -809,12 +797,6 @@ void *AtenderCliente (void *socket)
 			DameConectados (&miLista, notificacion2);
 			
 			pthread_mutex_unlock(&mutex); //ya puedes interrumpirme 
-			sprintf (notificacion,"6/%s",notificacion2);
-			int j;
-			for (j=0; j<miLista.num; j++)
-			{
-				write (miLista.conectados[j].socket,notificacion, strlen(notificacion)); //notificar a todos los clientes conectados
-			}
 			sprintf (notificacion,"6/%s/",notificacion2);
 			int j;
 			for (j=0; j<miLista.num; j++)
@@ -870,6 +852,7 @@ void *AtenderCliente (void *socket)
 				}
 			}
 		}
+		
 	}
 	// Se acabo el servicio para este cliente
 	close(sock_conn); 

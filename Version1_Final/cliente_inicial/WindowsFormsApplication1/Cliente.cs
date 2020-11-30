@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
 using System.Windows;
 namespace WindowsFormsApplication1
 {
@@ -21,7 +20,6 @@ namespace WindowsFormsApplication1
         Thread atender;
         bool registered; //bolean que nos permite saber si el usuario esta registrado o no en la base de datos.
         bool connected; //bolean que nos permite saber si nos hemos conectado o no a la base de datos.
-        delegate void DelegadoParaEscribir(string conectado);
         bool algunañadido; //bolean que nos permite saber si hay algún usuario añadido a la partida.
         bool invited; //bolean que nos permite saber si se ha invitado ya o no.
         delegate void DelegadoParaEscribir(string conectado);
@@ -214,8 +212,6 @@ namespace WindowsFormsApplication1
             this.BackColor = Color.Gray;
             connected = false;
             ListaConectados.Rows.Clear();
-            atender.Abort();
-        }
             ListaPartidas.Rows.Clear();
             atender.Abort();
         }
@@ -233,7 +229,6 @@ namespace WindowsFormsApplication1
                 int codigo = Convert.ToInt32(trozos[0]);
                 string mensaje = trozos[1].Split('\0')[0];
                 string mensaje2;
-                switch (codigo)
                 DialogResult result;
                 switch (codigo)
 
@@ -246,6 +241,7 @@ namespace WindowsFormsApplication1
                         else
                             MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
                         break;
+
                     case 2:
                         mensaje2 = trozos[2].Split('\0')[0];
 
@@ -264,15 +260,6 @@ namespace WindowsFormsApplication1
                         }
                         else
                             MessageBox.Show(mensaje2);
-                        break;
-                    case 3:
-                            MessageBox.Show(mensaje);
-                        break;
-                    case 4:
-                            MessageBox.Show(mensaje);
-                        break;
-                    case 5:
-                            MessageBox.Show(mensaje);
                         break;
 
                     case 3:
@@ -306,8 +293,6 @@ namespace WindowsFormsApplication1
                         else
                             NumConn.Text = "0";
                         break;
-                }
-            }
 
                     case 7:
                         int id = Convert.ToInt32(mensaje);
@@ -491,21 +476,7 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Se debe iniciar Sesión primero");
         }
 
-        public void PonTabla(string conectado)
-        {
-            ListaConectados.Rows.Add(conectado);
-            ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            NumConn.Text = "0";
-            registered = false;
-            connected = false;
-            ListaConectados.Rows.Clear();
-            ListaConectados.ColumnCount = 1;
-            ListaConectados.ColumnHeadersVisible = true;
-        }
 
 
         private void Añadir_Click(object sender, EventArgs e)

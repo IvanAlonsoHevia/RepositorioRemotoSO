@@ -433,11 +433,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
-            this.ClientSize = new System.Drawing.Size(1413, 569);
-=======
             this.ClientSize = new System.Drawing.Size(913, 398);
->>>>>>> dev-v4
             this.Controls.Add(this.NumConn);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ListaConectados);
@@ -483,8 +479,6 @@
         private System.Windows.Forms.DataGridView ListaConectados;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label NumConn;
-<<<<<<< HEAD
-=======
         private System.Windows.Forms.Button Invitar;
         private System.Windows.Forms.Button Jugar;
         private System.Windows.Forms.Button Añadir;
@@ -493,7 +487,6 @@
         private System.Windows.Forms.Label partidasBox;
         private System.Windows.Forms.TextBox Chat;
         private System.Windows.Forms.RichTextBox MensajesChat;
->>>>>>> dev-v4
     }
 }
 
