@@ -1,3 +1,2 @@
 # RepositorioRemotoSO
-Version 2 generada por Edgar Navarro Gesse
-Versión 2 verificada por Iván Alonso Hevia
+Version 4 generada por Iván Alonso Hevia
