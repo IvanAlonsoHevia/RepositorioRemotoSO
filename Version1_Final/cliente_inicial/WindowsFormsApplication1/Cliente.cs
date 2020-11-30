@@ -9,11 +9,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-<<<<<<< HEAD
 
-=======
 using System.Windows;
->>>>>>> dev-v4
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
@@ -24,16 +21,13 @@ namespace WindowsFormsApplication1
         Thread atender;
         bool registered; //bolean que nos permite saber si el usuario esta registrado o no en la base de datos.
         bool connected; //bolean que nos permite saber si nos hemos conectado o no a la base de datos.
-<<<<<<< HEAD
         delegate void DelegadoParaEscribir(string conectado);
-=======
         bool algunañadido; //bolean que nos permite saber si hay algún usuario añadido a la partida.
         bool invited; //bolean que nos permite saber si se ha invitado ya o no.
         delegate void DelegadoParaEscribir(string conectado);
         string[] invitado = new string [5];
         string autor;
         int contador;
->>>>>>> dev-v4
         public Form1()
         {
             InitializeComponent();
@@ -220,16 +214,13 @@ namespace WindowsFormsApplication1
             this.BackColor = Color.Gray;
             connected = false;
             ListaConectados.Rows.Clear();
-<<<<<<< HEAD
             atender.Abort();
         }
-=======
             ListaPartidas.Rows.Clear();
             atender.Abort();
         }
 
 
->>>>>>> dev-v4
         private void AtenderServidor()
         {
             while (true)
@@ -242,13 +233,10 @@ namespace WindowsFormsApplication1
                 int codigo = Convert.ToInt32(trozos[0]);
                 string mensaje = trozos[1].Split('\0')[0];
                 string mensaje2;
-<<<<<<< HEAD
                 switch (codigo)
-=======
                 DialogResult result;
                 switch (codigo)
 
->>>>>>> dev-v4
                 {
                    case 1:
                         if (mensaje == "SI")
@@ -258,10 +246,6 @@ namespace WindowsFormsApplication1
                         else
                             MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
                         break;
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-v4
                     case 2:
                         mensaje2 = trozos[2].Split('\0')[0];
 
@@ -281,7 +265,6 @@ namespace WindowsFormsApplication1
                         else
                             MessageBox.Show(mensaje2);
                         break;
-<<<<<<< HEAD
                     case 3:
                             MessageBox.Show(mensaje);
                         break;
@@ -291,7 +274,6 @@ namespace WindowsFormsApplication1
                     case 5:
                             MessageBox.Show(mensaje);
                         break;
-=======
 
                     case 3:
                             MessageBox.Show(mensaje);
@@ -305,7 +287,6 @@ namespace WindowsFormsApplication1
                             MessageBox.Show(mensaje);
                         break;
 
->>>>>>> dev-v4
                     case 6:
                         //Recibimos notificación
                         int nm = Convert.ToInt32(mensaje);
@@ -325,10 +306,8 @@ namespace WindowsFormsApplication1
                         else
                             NumConn.Text = "0";
                         break;
-<<<<<<< HEAD
                 }
             }
-=======
 
                     case 7:
                         int id = Convert.ToInt32(mensaje);
@@ -510,7 +489,6 @@ namespace WindowsFormsApplication1
             }
             else
                 MessageBox.Show("Se debe iniciar Sesión primero");
->>>>>>> dev-v4
         }
 
         public void PonTabla(string conectado)
@@ -519,7 +497,6 @@ namespace WindowsFormsApplication1
             ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
-<<<<<<< HEAD
         private void Form1_Load(object sender, EventArgs e)
         {
             NumConn.Text = "0";
@@ -529,7 +506,6 @@ namespace WindowsFormsApplication1
             ListaConectados.ColumnCount = 1;
             ListaConectados.ColumnHeadersVisible = true;
         }
-=======
 
 
         private void Añadir_Click(object sender, EventArgs e)
@@ -582,6 +558,5 @@ namespace WindowsFormsApplication1
             MensajesChat.BackColor = Color.Black;
         }
 
->>>>>>> dev-v4
     }
 }

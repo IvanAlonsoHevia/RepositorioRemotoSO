@@ -18,15 +18,12 @@ typedef struct {
 	int num;
 } ListaConectados;
 
-<<<<<<< HEAD
-=======
 typedef struct {
 	Conectado jugadores[5];
 	int num;
 } Partida;
 
 Partida misPartidas[100];
->>>>>>> dev-v4
 void init(ListaConectados *lista) {
 	int i;
 	for (i=0; i<100; i++) {
@@ -34,8 +31,6 @@ void init(ListaConectados *lista) {
 		lista->conectados[i].socket = 0;
 	}
 }
-<<<<<<< HEAD
-=======
 
 void init2(Partida partidas[100]) {
 	int i;
@@ -43,7 +38,6 @@ void init2(Partida partidas[100]) {
 		partidas[i].num=0;
 	}
 }
->>>>>>> dev-v4
 int Pon (ListaConectados *lista, char nombre[20], int socket) {
 	//Añade nuevo conectados. Retorna 0 si ok y -1 si la lista 
 	//ya estaba llena y no lo ha podido añadir.
@@ -72,11 +66,8 @@ int Pon (ListaConectados *lista, char nombre[20], int socket) {
 }
 int PonNombre (ListaConectados *lista, int socket, char nombre[20]) {
 	int encontrado = 0;
-<<<<<<< HEAD
 	int i;
-=======
 	int i=0;
->>>>>>> dev-v4
 	while ((i < lista->num) && (!encontrado))
 	{
 		if (lista->conectados[i].socket==socket)
@@ -563,13 +554,10 @@ void *AtenderCliente (void *socket)
 	int minpunt;
 	char f_h[200];
 	int ret;
-<<<<<<< HEAD
-=======
 	int id;
 	int SocketInvitado;
 	int SocketAnfitrion;
 	char jugada[100];
->>>>>>> dev-v4
 	// INICIALIZACIONESDB
 	MYSQL *conn;
 	//Creamos una conexion al servidor MYSQL.
@@ -689,11 +677,8 @@ void *AtenderCliente (void *socket)
 		
 		else if (codigo == 3) //consulta1
 		{
-<<<<<<< HEAD
 			char resolucion [512];
-=======
 			strcpy(resolucion,"");
->>>>>>> dev-v4
 			p = strtok( NULL, "/");
 			strcpy (username, p);
 			p = strtok( NULL, "/");
@@ -706,11 +691,8 @@ void *AtenderCliente (void *socket)
 		
 		else if (codigo == 4) //consulta2
 		{
-<<<<<<< HEAD
 			char resolucion [512];
-=======
 			strcpy(resolucion,"");
->>>>>>> dev-v4
 			p = strtok( NULL, "/");
 			strcpy (username, p);
 			consulta2 (username, conn, resolucion);
@@ -718,13 +700,10 @@ void *AtenderCliente (void *socket)
 		}
 		
 		else if (codigo == 5) //consulta3
-<<<<<<< HEAD
 		{
 			char resolucion [512];
-=======
 		{			
 			strcpy(resolucion,"");
->>>>>>> dev-v4
 			p = strtok( NULL, "/");
 			minjug = atoi(p);
 			p = strtok( NULL, "/");
@@ -733,9 +712,7 @@ void *AtenderCliente (void *socket)
 			strcpy (f_h, p);
 			consulta3 (minjug, minpunt, f_h, conn, resolucion);
 			sprintf (respuesta,"5/%s",resolucion); 
-<<<<<<< HEAD
-=======
-		}
+	}
 		
 		else if (codigo == 7) //RECIBO: 7/Maria/Pablo
 			//ENVIO: 7/ID/Juan
@@ -790,11 +767,9 @@ void *AtenderCliente (void *socket)
 				sprintf (respuesta, "8/%d/%s/%s no quiere jugar en esta partida", id, username, username);
 				write (SocketAnfitrion,respuesta, strlen(respuesta));
 			}
->>>>>>> dev-v4
 		}
 		else if (codigo == 9) //9/ID/Chat
 		{
-<<<<<<< HEAD
 			write (sock_conn,respuesta, strlen(respuesta)); //respuesta a un cliente
 			
 		}
@@ -802,7 +777,6 @@ void *AtenderCliente (void *socket)
 			
 			char notificacion[100];
 			char notificacion2[100];	
-=======
 			strcpy(respuesta,"");
 			char chat[100];
 			p = strtok( NULL, "/");
@@ -831,19 +805,16 @@ void *AtenderCliente (void *socket)
 			char notificacion2[100];	
 			strcpy(notificacion,"");
 			strcpy(notificacion2,"");
->>>>>>> dev-v4
 			pthread_mutex_lock(&mutex); //No me interrumpas ahora
 			DameConectados (&miLista, notificacion2);
 			
 			pthread_mutex_unlock(&mutex); //ya puedes interrumpirme 
-<<<<<<< HEAD
 			sprintf (notificacion,"6/%s",notificacion2);
 			int j;
 			for (j=0; j<miLista.num; j++)
 			{
 				write (miLista.conectados[j].socket,notificacion, strlen(notificacion)); //notificar a todos los clientes conectados
 			}
-=======
 			sprintf (notificacion,"6/%s/",notificacion2);
 			int j;
 			for (j=0; j<miLista.num; j++)
@@ -898,7 +869,6 @@ void *AtenderCliente (void *socket)
 						write (misPartidas[j].jugadores[n].socket,notificacion4, strlen(notificacion4)); //notificar a todos los clientes pertenecientes a la partida
 				}
 			}
->>>>>>> dev-v4
 		}
 	}
 	// Se acabo el servicio para este cliente
@@ -909,10 +879,7 @@ void *AtenderCliente (void *socket)
 }
 
 int main(int argc, char *argv[]){
-<<<<<<< HEAD
-=======
 	init2(misPartidas);
->>>>>>> dev-v4
 	init(&miLista);
 	miLista.num=0;
 	int sock_conn, sock_listen;
