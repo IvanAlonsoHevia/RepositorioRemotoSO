@@ -9,16 +9,31 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+<<<<<<< HEAD
 
+=======
+using System.Windows;
+>>>>>>> dev-v4
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        int cont;
+        int ID;
         Socket server;
         Thread atender;
         bool registered; //bolean que nos permite saber si el usuario esta registrado o no en la base de datos.
         bool connected; //bolean que nos permite saber si nos hemos conectado o no a la base de datos.
+<<<<<<< HEAD
         delegate void DelegadoParaEscribir(string conectado);
+=======
+        bool algunañadido; //bolean que nos permite saber si hay algún usuario añadido a la partida.
+        bool invited; //bolean que nos permite saber si se ha invitado ya o no.
+        delegate void DelegadoParaEscribir(string conectado);
+        string[] invitado = new string [5];
+        string autor;
+        int contador;
+>>>>>>> dev-v4
         public Form1()
         {
             InitializeComponent();
@@ -200,12 +215,21 @@ namespace WindowsFormsApplication1
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
 
+
             // Nos desconectamos
             this.BackColor = Color.Gray;
             connected = false;
             ListaConectados.Rows.Clear();
+<<<<<<< HEAD
             atender.Abort();
         }
+=======
+            ListaPartidas.Rows.Clear();
+            atender.Abort();
+        }
+
+
+>>>>>>> dev-v4
         private void AtenderServidor()
         {
             while (true)
@@ -218,7 +242,13 @@ namespace WindowsFormsApplication1
                 int codigo = Convert.ToInt32(trozos[0]);
                 string mensaje = trozos[1].Split('\0')[0];
                 string mensaje2;
+<<<<<<< HEAD
                 switch (codigo)
+=======
+                DialogResult result;
+                switch (codigo)
+
+>>>>>>> dev-v4
                 {
                    case 1:
                         if (mensaje == "SI")
@@ -228,6 +258,10 @@ namespace WindowsFormsApplication1
                         else
                             MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
                         break;
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev-v4
                     case 2:
                         mensaje2 = trozos[2].Split('\0')[0];
 
@@ -247,6 +281,7 @@ namespace WindowsFormsApplication1
                         else
                             MessageBox.Show(mensaje2);
                         break;
+<<<<<<< HEAD
                     case 3:
                             MessageBox.Show(mensaje);
                         break;
@@ -256,6 +291,21 @@ namespace WindowsFormsApplication1
                     case 5:
                             MessageBox.Show(mensaje);
                         break;
+=======
+
+                    case 3:
+                            MessageBox.Show(mensaje);
+                        break;
+
+                    case 4:
+                            MessageBox.Show(mensaje);
+                        break;
+
+                    case 5:
+                            MessageBox.Show(mensaje);
+                        break;
+
+>>>>>>> dev-v4
                     case 6:
                         //Recibimos notificación
                         int nm = Convert.ToInt32(mensaje);
@@ -275,6 +325,92 @@ namespace WindowsFormsApplication1
                         else
                             NumConn.Text = "0";
                         break;
+<<<<<<< HEAD
+                }
+            }
+=======
+
+                    case 7:
+                        int id = Convert.ToInt32(mensaje);
+                        mensaje2 = trozos[2].Split('\0')[0];
+                        if (id != -1)
+                        {
+
+                            result = (MessageBox.Show("Hola, " + Username.Text + ": " +mensaje2 + " te ha invitado a jugar a la partida " + id + ", ¿aceptas?", "aceptar", MessageBoxButtons.YesNo));
+                            switch (result)
+                            {
+                                case DialogResult.Yes:
+                                    string envio = "8/" + mensaje + "/SI";
+                                    // Enviamos al servidor el username y password tecleadas.
+                                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(envio);
+                                    server.Send(msg);
+                                    break;
+                                case DialogResult.No:
+                                    envio = "8/" + mensaje + "/NO";
+                                    // Enviamos al servidor el username y password tecleadas.
+                                    msg = System.Text.Encoding.ASCII.GetBytes(envio);
+                                    server.Send(msg);
+                                    break;
+                            }
+                        }
+                        else
+                            MessageBox.Show(mensaje2);
+                        break;
+
+                    case 8:
+                        id = Convert.ToInt32(mensaje);
+                        ID = id;
+                        mensaje2 = trozos[2].Split('\0')[0];
+                        string mensaje3 = trozos[3].Split('\0')[0];
+                        if (mensaje3 == "SI")
+                        {
+                            MessageBox.Show(mensaje2 + " ha aceptado a jugar la partida " + id);
+                            cont = cont + 1;
+                        }
+                        else
+                        {
+                            MessageBox.Show(mensaje3);
+                            cont = cont + 1;
+                        }
+
+                        
+
+                        if (cont == contador)
+                        {
+                            invited = true;
+                            contador = 0;
+                            cont = 0;
+                        }
+                        break;
+
+                    case 9:
+                        autor = mensaje;
+                        mensaje2 = trozos[2].Split('\0')[0];
+                        RecibirChat(autor, mensaje2);
+                        break;
+                
+                    case 10:
+                        //Recibimos notificación
+                        int n = Convert.ToInt32(mensaje);  //recibimos el numero de partidas disponibles
+
+                        if (n != 0)
+                        {
+                            ListaPartidas.Rows.Clear();
+                            partidasBox.Text = mensaje;
+                            int i;
+                            for (i = 2; i < n+2; i++)
+                            {
+                                mensaje2 = trozos[i].Split('\0')[0];
+                                DelegadoParaEscribir delegado = new DelegadoParaEscribir(PonTabla2);
+                                ListaPartidas.Invoke(delegado, new object[] { mensaje2 });
+                                
+                            }
+                            ListaPartidas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                        }
+                        else
+                            partidasBox.Text = "0";
+                        break;
+
                 }
             }
         }
@@ -284,7 +420,106 @@ namespace WindowsFormsApplication1
             ListaConectados.Rows.Add(conectado);
             ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
+        public void PonTabla2(string id)
+        {
+            ListaPartidas.Rows.Add(id);
+            ListaPartidas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+       
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            NumConn.Text = "0";
+            partidasBox.Text = "0";
+            registered = false;
+            connected = false;
+            algunañadido = false;
+            invited = true;
+            contador = 0;
+            cont = 0;
+            ListaConectados.Rows.Clear();
+            ListaConectados.ColumnCount = 1;
+            ListaConectados.ColumnHeadersVisible = true;
+            ListaPartidas.Rows.Clear();
+            ListaPartidas.ColumnCount = 1;
+            ListaPartidas.ColumnHeadersVisible = true;
+        }
+        public void Invitar_Click(object sender, EventArgs e)
+        {
+            if (algunañadido == false)
+            {
+                MessageBox.Show("Añade como mínimo a otro usuario más para poder jugar la partida");
+            }
+            else
+            {
+                string mensaje = "7/";
+                int i=0;
+                string envio;
+                while (i < contador)
+                {
+                    if (i == contador - 1)
+                    {
+                        envio = invitado[i];
+                    }
+                    else
+                    {
+                        envio = invitado[i] + "/";
+                    }
+                    mensaje += envio;
+                    i = i + 1;
+                }
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+                
+                i = 0;
+                while (i < contador)
+                {
+                    invitado[i]="";
+                    i = i + 1;
+                }
+                algunañadido = false;
+                invited = false;
 
+            }
+
+        }
+
+
+        private void Jugar_Click_1(object sender, EventArgs e)  //es el botón Enviar
+        {
+            if (registered)
+            {
+                if (invited)
+                {           
+                    ID = Convert.ToInt32(ListaPartidas.CurrentCell.Value.ToString());
+                    MessageBox.Show("ID seleccionado "+Convert.ToString(ID));
+                    //comprobamos que la partida no se este ya jugando
+
+
+                    if (Chat.Text!="")  //si no se esta jugando
+                    {
+                        string mensaje = "9/" + ID + "/"+Chat.Text+"/";
+                        // Enviamos al servidor el mensaje del chat.
+                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                        server.Send(msg);
+                    }
+                }
+
+                else                    
+                    MessageBox.Show("Por favor, espera a que sean contestadas todas tus invitaciones.");
+                
+            }
+            else
+                MessageBox.Show("Se debe iniciar Sesión primero");
+>>>>>>> dev-v4
+        }
+
+        public void PonTabla(string conectado)
+        {
+            ListaConectados.Rows.Add(conectado);
+            ListaConectados.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+<<<<<<< HEAD
         private void Form1_Load(object sender, EventArgs e)
         {
             NumConn.Text = "0";
@@ -294,5 +529,59 @@ namespace WindowsFormsApplication1
             ListaConectados.ColumnCount = 1;
             ListaConectados.ColumnHeadersVisible = true;
         }
+=======
+
+
+        private void Añadir_Click(object sender, EventArgs e)
+        {
+            
+            if (invited)
+            {
+                if (ListaConectados.CurrentCell.Value.ToString() != Username.Text)
+                {
+                    bool encontrado = false;
+                    int i = 0;
+                    while (i < contador && !encontrado)
+                    {                   
+                        if (invitado[i] == ListaConectados.CurrentCell.Value.ToString())
+                        {
+                            encontrado = true;
+                        }
+                        i++;                 
+                    
+                    }
+                    if (!encontrado)
+                    {
+                        invitado[contador] = ListaConectados.CurrentCell.Value.ToString();
+                        MessageBox.Show(invitado[contador] + " ha sido añadido correctamente a la lista de invitaciones");
+                        contador = contador + 1;
+                        algunañadido = true;
+                    }
+                    else
+                        MessageBox.Show("El usuario ya ha sido añadido anteriormente a la lista de invitaciones");
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Selecciona otro usuario distinto a ti mismo");
+                }
+            }
+
+        }
+
+
+        public void RecibirChat(string autor, string message)
+        {
+            MensajesChat.SelectionFont = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+            MensajesChat.SelectionColor = Color.Green;
+            MensajesChat.AppendText(autor);
+            MensajesChat.SelectionFont = new Font("Microsoft Sans Serif", 8);
+            MensajesChat.SelectionColor = Color.White;
+            MensajesChat.AppendText(" :\n" + message + "\r\n");
+            MensajesChat.ScrollToCaret();
+            MensajesChat.BackColor = Color.Black;
+        }
+
+>>>>>>> dev-v4
     }
 }
