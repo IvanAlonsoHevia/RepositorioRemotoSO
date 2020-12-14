@@ -12,3 +12,5 @@ Version 4 generada por Iván Alonso Hevia
 Versión 4 verificada por Omar Abdel·lah Hossain
 
 Versión 5 generada por Edgar Navarro Gessé
+
+Versión 5 verificada por Iván Alonso Hevia
