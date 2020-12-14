@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
     {
         int cont;
         int ID;
+        int juegan;
         Socket server;
         Thread atender;
         bool registered; //bolean que nos permite saber si el usuario esta registrado o no en la base de datos.
@@ -236,11 +237,12 @@ namespace WindowsFormsApplication1
                    case 1:
                         if (mensaje == "SI")
                         {
-                            MessageBox.Show("El usuario: " + Username.Text + ", se ha registrado correctamente.");
+                            MessageBox.Show("El usuario: " + Username.Text + ", se ha registrado correctamente."); 
                         }
                         else
                             MessageBox.Show("El usuario: " + Username.Text + ", ya está cogido.");
                         break;
+                   
 
                     case 2:
                         mensaje2 = trozos[2].Split('\0')[0];
@@ -251,6 +253,8 @@ namespace WindowsFormsApplication1
                             {
                                 MessageBox.Show(mensaje2);
                                 registered = true;
+                                //DelegadoParaAbrirMain delegado1 = new DelegadoParaAbrirMain (AbrirMain);
+                                //this.invoke(delegado1, new object [] {Username.Text});
                             }
                             else
                             {
@@ -330,6 +334,7 @@ namespace WindowsFormsApplication1
                         {
                             MessageBox.Show(mensaje2 + " ha aceptado a jugar la partida " + id);
                             cont = cont + 1;
+                            juegan = juegan + 1;
                         }
                         else
                         {
@@ -400,6 +405,7 @@ namespace WindowsFormsApplication1
             invited = true;
             contador = 0;
             cont = 0;
+            juegan = 1;
             ListaConectados.Rows.Clear();
             ListaConectados.ColumnCount = 1;
             ListaConectados.ColumnHeadersVisible = true;
@@ -409,6 +415,13 @@ namespace WindowsFormsApplication1
         }
         public void Invitar_Click(object sender, EventArgs e)
         {
+            if (juegan < 2)
+            {
+                string mensaje = "9/" + ID + "/" + "Eliminar" + "/";
+                //Eliminamos la partida.
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+            }
             if (algunañadido == false)
             {
                 MessageBox.Show("Añade como mínimo a otro usuario más para poder jugar la partida");
@@ -442,7 +455,7 @@ namespace WindowsFormsApplication1
                 }
                 algunañadido = false;
                 invited = false;
-
+                juegan = 1;
             }
 
         }
@@ -453,12 +466,10 @@ namespace WindowsFormsApplication1
             if (registered)
             {
                 if (invited)
-                {           
+                { 
                     ID = Convert.ToInt32(ListaPartidas.CurrentCell.Value.ToString());
                     MessageBox.Show("ID seleccionado "+Convert.ToString(ID));
                     //comprobamos que la partida no se este ya jugando
-
-
                     if (Chat.Text!="")  //si no se esta jugando
                     {
                         string mensaje = "9/" + ID + "/"+Chat.Text+"/";
@@ -476,9 +487,6 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Se debe iniciar Sesión primero");
         }
 
-
-
-
         private void Añadir_Click(object sender, EventArgs e)
         {
             
@@ -495,7 +503,6 @@ namespace WindowsFormsApplication1
                             encontrado = true;
                         }
                         i++;                 
-                    
                     }
                     if (!encontrado)
                     {
@@ -513,7 +520,6 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("Selecciona otro usuario distinto a ti mismo");
                 }
             }
-
         }
 
 

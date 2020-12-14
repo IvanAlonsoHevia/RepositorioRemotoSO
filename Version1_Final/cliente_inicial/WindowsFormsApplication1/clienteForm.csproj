@@ -59,10 +59,65 @@
     <Compile Include="Cliente.Designer.cs">
       <DependentUpon>Cliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Consulta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Consulta.Designer.cs">
+      <DependentUpon>Consulta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CrearPartida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CrearPartida.Designer.cs">
+      <DependentUpon>CrearPartida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JugarPartida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JugarPartida.Designer.cs">
+      <DependentUpon>JugarPartida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Partida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Partida.Designer.cs">
+      <DependentUpon>Partida.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThemeColor.cs" />
     <EmbeddedResource Include="Cliente.resx">
       <DependentUpon>Cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Consulta.resx">
+      <DependentUpon>Consulta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CrearPartida.resx">
+      <DependentUpon>CrearPartida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JugarPartida.resx">
+      <DependentUpon>JugarPartida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Partida.resx">
+      <DependentUpon>Partida.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -83,6 +138,60 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LOGOSUPER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\miniminizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alguna pregunta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-question-mark-clip-art-pictures-of-people-using-computers-5aaadb0d343015.4569645415211466372138.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-question-mark-clip-art-pictures-of-people-using-computers-5aaadb0d343015.4569645415211466372138 %281%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-question-mark-clip-art-pictures-of-people-using-computers-5aaadb0d343015.4569645415211466372138 %282%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alguna pregunta.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jugar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jugar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\anadir_jugador_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play_preview_rev_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jugar_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\anadir_jugador_11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alguna_pregunta_1_1_preview_rev_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play_new_1_preview_rev_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\descarga_1_preview_rev_1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
