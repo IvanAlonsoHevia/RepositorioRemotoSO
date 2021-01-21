@@ -59,5 +59,260 @@ namespace WindowsFormsApplication1.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _5df35869fba7396cd0674b814c74afb2 {
+            get {
+                object obj = ResourceManager.GetObject("5df35869fba7396cd0674b814c74afb2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _899dbbaad4de5a3b8d195ff4a1a0fbb3 {
+            get {
+                object obj = ResourceManager.GetObject("899dbbaad4de5a3b8d195ff4a1a0fbb3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap a98a6e361e8bc2024b1a6abcf6c3b1d6_preview_rev_1 {
+            get {
+                object obj = ResourceManager.GetObject("a98a6e361e8bc2024b1a6abcf6c3b1d6_preview_rev_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap alguna_pregunta {
+            get {
+                object obj = ResourceManager.GetObject("alguna pregunta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap alguna_pregunta_1_1_preview_rev_1 {
+            get {
+                object obj = ResourceManager.GetObject("alguna_pregunta_1_1_preview_rev_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap alguna_pregunta1 {
+            get {
+                object obj = ResourceManager.GetObject("alguna pregunta1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap anadir_jugador_1 {
+            get {
+                object obj = ResourceManager.GetObject("anadir_jugador_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap anadir_jugador_11 {
+            get {
+                object obj = ResourceManager.GetObject("anadir_jugador_11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap castle_bricks {
+            get {
+                object obj = ResourceManager.GetObject("castle_bricks", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cruz {
+            get {
+                object obj = ResourceManager.GetObject("cruz", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap descarga_1_preview_rev_1 {
+            get {
+                object obj = ResourceManager.GetObject("descarga_1_preview_rev_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fondo32 {
+            get {
+                object obj = ResourceManager.GetObject("fondo32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap jugar {
+            get {
+                object obj = ResourceManager.GetObject("jugar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap jugar_1 {
+            get {
+                object obj = ResourceManager.GetObject("jugar_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap jugar1 {
+            get {
+                object obj = ResourceManager.GetObject("jugar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kisspng_question_mark_clip_art_pictures_of_people_using_computers_5aaadb0d343015_4569645415211466372138 {
+            get {
+                object obj = ResourceManager.GetObject("kisspng-question-mark-clip-art-pictures-of-people-using-computers-5aaadb0d343015." +
+                        "4569645415211466372138", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kisspng_question_mark_clip_art_pictures_of_people_using_computers_5aaadb0d343015_4569645415211466372138__1_ {
+            get {
+                object obj = ResourceManager.GetObject("kisspng-question-mark-clip-art-pictures-of-people-using-computers-5aaadb0d343015." +
+                        "4569645415211466372138 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kisspng_question_mark_clip_art_pictures_of_people_using_computers_5aaadb0d343015_4569645415211466372138__2_ {
+            get {
+                object obj = ResourceManager.GetObject("kisspng-question-mark-clip-art-pictures-of-people-using-computers-5aaadb0d343015." +
+                        "4569645415211466372138 (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LOGOSUPER {
+            get {
+                object obj = ResourceManager.GetObject("LOGOSUPER", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap maximizar {
+            get {
+                object obj = ResourceManager.GetObject("maximizar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap miniminizar {
+            get {
+                object obj = ResourceManager.GetObject("miniminizar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap play_new_1_preview_rev_1 {
+            get {
+                object obj = ResourceManager.GetObject("play_new_1_preview_rev_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap play_preview_rev_1 {
+            get {
+                object obj = ResourceManager.GetObject("play_preview_rev_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_transparent_pixel_dungeon_sprite_2d_computer_graphics_boss_tower_defense_sprite_game_video_game_ {
+            get {
+                object obj = ResourceManager.GetObject("png-transparent-pixel-dungeon-sprite-2d-computer-graphics-boss-tower-defense-spri" +
+                        "te-game-video-game-", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_transparent_pixel_dungeon_sprite_2d_computer_graphics_boss_tower_defense_sprite_game_video_game_1 {
+            get {
+                object obj = ResourceManager.GetObject("png-transparent-pixel-dungeon-sprite-2d-computer-graphics-boss-tower-defense-spri" +
+                        "te-game-video-game-1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
