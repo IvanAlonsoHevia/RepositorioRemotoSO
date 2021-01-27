@@ -15,6 +15,8 @@ Versión 5 generada por Edgar Navarro Gessé
 
 Versión 5 verificada por Iván Alonso Hevia
 
-Versión 6 verificada por Iván Alonso Hevia
+Versión 6 generada por Edgar Navarro Gessé
 
 Versión 6 verificada por Iván Alonso Hevia
+
+
